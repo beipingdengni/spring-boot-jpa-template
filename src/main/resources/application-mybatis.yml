@@ -1,0 +1,36 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: spring-boot-jpa-template
+
+  datasource:
+    #    data: classpath:db/data.sql
+    #    schema: classpath:db/schema.sql
+    hikari:  # 默认使用的链接池
+      minimum-idle: 10
+      maximum-pool-size: 20
+      connection-timeout: 10000
+      idle-timeout: 600000
+      max-lifetime: 1800000 # 存活最长时间
+      connection-test-query: select 1
+      auto-commit: true
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/tian?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        show_sql: true
+#logging:
+#  config: classpath:logback.xml

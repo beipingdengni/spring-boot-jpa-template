@@ -1,0 +1,83 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+// 刷新： gradle -x test build --refresh-dependencies
+
+group = 'com.tbp'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+
+//    all*.exclude group: 'commons-logging', module: 'commons-logging' // common-logging
+//    all*.exclude group: 'log4j', module: 'log4j' // log4j
+//    all*.exclude group: 'ch.qos.logback', module: 'logback-core' // logback
+//    all*.exclude group: 'ch.qos.logback', module: 'logback-classic' // slf4j -> logback
+//    all*.exclude group: 'org.slf4j', module: 'slf4j-jdk14' // slf4j -> jdk-logging
+//    all*.exclude group: 'org.slf4j', module: 'slf4j-jcl' // slf4j -> common-logging
+//    all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12' // slf4j -> log4j
+
+    all {
+        resolutionStrategy.failOnVersionConflict()
+        resolutionStrategy.cacheDynamicVersionsFor 10, 'minutes'
+    }
+}
+
+ext {
+    slf4j_version = '1.7.25'
+    swagger2_version = '2.5.0'
+//    swagger2_version = '2.9.2'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+
+
+dependencies {
+//    implementation "org.slf4j:slf4j-api:$slf4j_version"
+    implementation "org.slf4j:jul-to-slf4j:$slf4j_version"
+    implementation "org.slf4j:jcl-over-slf4j:$slf4j_version"
+    implementation "io.springfox:springfox-swagger2:$swagger2_version"
+    implementation "io.springfox:springfox-swagger-ui:$swagger2_version"
+
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+    useJUnitPlatform()
+}
