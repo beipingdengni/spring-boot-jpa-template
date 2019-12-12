@@ -1,4 +1,4 @@
-package com.tbp.spring.boot.jps.template.Dao;
+package com.tbp.spring.boot.jps.template.repository;
 
 import com.tbp.spring.boot.jps.template.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

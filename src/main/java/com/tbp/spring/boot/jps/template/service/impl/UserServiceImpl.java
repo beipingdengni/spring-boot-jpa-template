@@ -1,6 +1,6 @@
 package com.tbp.spring.boot.jps.template.service.impl;
 
-import com.tbp.spring.boot.jps.template.Dao.UserDao;
+import com.tbp.spring.boot.jps.template.repository.UserDao;
 import com.tbp.spring.boot.jps.template.entity.UserEntity;
 import com.tbp.spring.boot.jps.template.service.UserService;
 import com.tbp.spring.boot.jps.template.vo.UserReq;
